@@ -10,11 +10,10 @@ To provide visual feedback, an LED indicator lights up briefly with each receive
 The program also manages a buffer for up to 8 active notes, ensuring that even in overlapping situations, only the most recent note is used to set the control voltage.
 
 Additional features include support for MIDI Control Change messages such as sustain (CC 64), which keeps the gate active after note release, and an "All Notes Off" (panic) command (CC 123) to reset the system by clearing the buffer and turning off the gate.
+
 The program operates on a single configurable MIDI channel and implements MIDI Running Status for efficient message handling.
 
-Below you will find an electronic schematic and some examples that can be used as a guide to integrate this MIDI-to-CV converter into your project.
-
- 
+Below you can find an electronic schematic and some examples that can be used as a guide to integrate this MIDI-to-CV converter into your project.
 
 Upload wiring and setup usign Arduino Nano/Uno:
 
@@ -44,8 +43,6 @@ http://drazzy.com/package_drazzy.com_index.json
 -Burn the bootloader ONLY THE FIRST TIME
 
 -Upload the code using the Upload button
-
- 
 
 Schematics:
 
