@@ -12,3 +12,7 @@ Additional features include support for MIDI Control Change messages such as sus
 The program operates on a single configurable MIDI channel and implements MIDI Running Status for efficient message handling.
 
 Below you will find an electronic schematic and some examples that can be used as a guide to integrate this MIDI-to-CV converter into your project.
+
+![MIDI-TO-CV-ATTINY85](https://github.com/user-attachments/assets/ea48776f-24c2-4b30-8efd-cc0e047dc06d)
+
+![OPTIONAL](https://github.com/user-attachments/assets/5aab95e9-be8c-46f1-82db-d3616caf1ad5)
