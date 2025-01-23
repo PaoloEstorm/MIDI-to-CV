@@ -27,13 +27,22 @@ Arduino IDE 2.x.x Setup:
 http://drazzy.com/package_drazzy.com_index.json
 
 -intall "ATTinyCore" in boards manager
+
 -set Board to "ATiny25/45/85 (No bootloader)"
+
 -set Port to your arduino programmer
+
 -set Chip to "ATtiny85"
+
 -set Clock Source to "8 Mhz (internal)"
+
 -set millis()/micros() to "Enabled"
+
 -set Timer 1 Clock to "64Mhz"
+
 -set programmer to "Arduino as ISP"
+
 -burn the bootloader ONLY THE FIRST TIME
+
 -upload the code using the Upload button
 
