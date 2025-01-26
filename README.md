@@ -1,6 +1,6 @@
-This program, designed for the ATtiny85 microcontroller, is a simple and reliable MIDI-to-CV converter tailored for monophonic applications.
+This program, designed for the ATtiny85 microcontroller, is a simple and reliable MIDI-to-CV converter specific for monophonic applications.
 
-It translates MIDI notes messages into an analog control voltage (CV) and a gate signal, making it ideal for integrating MIDI devices with analog synthesizers or other CV-based hardware.
+It translates MIDI notes messages into an analog control voltage (CV) and a gate signal, making it useful for integrating MIDI devices with analog synthesizers or other CV-based hardware.
 
 The program reads MIDI input at the standard baud rate of 31,250 and converts note data into a 500 kHz PWM signal, which can easily be filtered using a low-pass filter to produce a continuous control voltage.
 
