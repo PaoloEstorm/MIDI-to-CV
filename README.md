@@ -24,7 +24,7 @@ Arduino IDE 2.x.x Setup:
 -Add this to the additional boards in Preferences:
 http://drazzy.com/package_drazzy.com_index.json
 
--intall "ATTinyCore" in boards manager
+-Install "ATTinyCore" in boards manager
 
 -Set Board to "ATiny25/45/85 (No bootloader)"
 
