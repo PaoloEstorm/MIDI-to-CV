@@ -3,7 +3,7 @@
 
 // Authors: Paolo Estorm, Kevin
 
-// Version 3.50
+// Version 3.51
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,6 +29,8 @@
 // burn the bootloader ONLY THE FIRST TIME
 // upload using the Upload button
 
+#define USE_MIDI_INDICATOR
+
 #include <SoftwareSerial.h>
 
 #define MIDICH 1  // Set this to the MIDI channel to listen to (1 to 16)
@@ -36,7 +38,11 @@
 #define MIDIRX 0   // PB0 (Pin 5) MIDI in
 #define GATE 2     // PB2 (Pin 7) Gate
 #define PITCHCV 1  // PB1 (Pin 6) Pitch CV
+
+#if defined(USE_MIDI_INDICATOR)
 #define MIDILED 3  // PB3 (Pin 2) MIDI Indicator
+bool BlinkMidiLed = false;
+#endif
 
 SoftwareSerial midiSerial(MIDIRX, -1);
 
@@ -50,7 +56,6 @@ int8_t NoteBuffer[NoteBuffersSize];
 int8_t NumKeyPressed = 0;
 
 bool Sustain = false;
-bool BlinkMidiLed = false;
 
 void setup() {
 
@@ -58,14 +63,17 @@ void setup() {
 
   pinMode(GATE, OUTPUT);
   pinMode(PITCHCV, OUTPUT);
+
+#if defined(USE_MIDI_INDICATOR)
   pinMode(MIDILED, OUTPUT);  // Enable midi led output pin
+  digitalWrite(MIDILED, LOW);
+#endif
 
   TCCR1 = _BV(PWM1A) | _BV(COM1A1) | _BV(CS10);
   GTCCR = 0;
   OCR1C = 127;
   OCR1A = 0;  // Initial Pitch CV = 0
 
-  digitalWrite(MIDILED, LOW);
   GateOff();
 }
 
@@ -87,12 +95,16 @@ void loop() {
     doMIDI(midiSerial.read());
   }
 
+#if defined(USE_MIDI_INDICATOR)
   LedOnTimer();
+#endif
 }
 
 void doMIDI(uint8_t midibyte) {
 
+#if defined(USE_MIDI_INDICATOR)
   BlinkMidiLed = true;
+#endif
 
   if ((midibyte >= 0x80) && (midibyte <= 0xEF)) {  //if it's a status message
     //
@@ -127,7 +139,7 @@ void doMIDI(uint8_t midibyte) {
       }
     }
 
-    else if (MIDIRunningStatus == 0x90) { // NoteOn
+    else if (MIDIRunningStatus == 0x90) {  // NoteOn
       if (MIDINote == 0) {
         MIDINote = midibyte;
       }
@@ -169,7 +181,7 @@ void doMIDI(uint8_t midibyte) {
 }
 
 void LedOnTimer() {
-
+#if defined(USE_MIDI_INDICATOR)
   static unsigned long SampleTime = 0;  // Time at which the timer was set
   static bool TimerState = false;       // Is the timer still running?
 
@@ -186,6 +198,7 @@ void LedOnTimer() {
     TimerState = false;
     digitalWrite(MIDILED, LOW);
   }
+#endif
 }
 
 void ResetSynth() {
@@ -201,7 +214,7 @@ void ResetSynth() {
 
 void HandleCC(uint8_t cc, uint8_t value) {
 
-  if (cc == 64) {
+  if (cc == 64) { // sustain pedal cc
     if (value > 0) Sustain = true;
     else {
       Sustain = false;
@@ -216,14 +229,14 @@ void HandleNoteOn(uint8_t note) {
 
   NumKeyPressed++;
   if (NumKeyPressed > NoteBuffersSize) NumKeyPressed = NoteBuffersSize;
-  if (NumKeyPressed > 0) NoteBuffer[NumKeyPressed - 1] = note;
+  if (NumKeyPressed > 0) NoteBuffer[NumKeyPressed - 1] = note;  // store in buffer
   SetTimerPWM(note);
   GateOn();
 }
 
 void HandleNoteOff(uint8_t note) {
 
-  for (uint8_t j = 0; j < NoteBuffersSize; j++) {
+  for (uint8_t j = 0; j < NoteBuffersSize; j++) {  // remove from buffer
     for (uint8_t i = 0; i < NoteBuffersSize; i++) {
       if (NoteBuffer[i] == note) {
         NoteBuffer[i] = -1;
