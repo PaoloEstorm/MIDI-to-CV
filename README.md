@@ -46,6 +46,6 @@ http://drazzy.com/package_drazzy.com_index.json
 
 Schematics:
 
-![MIDI-TO-CV-ATTINY85](https://github.com/user-attachments/assets/a47dfad4-9dd5-4faa-a4a1-b70527d5d8be)
+<img width="1617" height="2297" alt="Schematic_MIDI-TO-CV-ATTINY85_2026-01-09_Pagina_1" src="https://github.com/user-attachments/assets/c2bcc47b-113c-4a00-8f24-6fd6369b0251" />
+<img width="1617" height="2299" alt="Schematic_MIDI-TO-CV-ATTINY85_2026-01-09_Pagina_2" src="https://github.com/user-attachments/assets/e32db71b-93f8-45af-9c0d-44448fbd7713" />
 
-![OPTIONAL](https://github.com/user-attachments/assets/c29ad219-e8a6-4bae-8427-53af5e63b977)
